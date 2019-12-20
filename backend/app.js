@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const globalErrorHandler = require('./controllers/errorController');
 const postRouter = require('./routes/postRoutes');
 const userRouter = require('./routes/userRoutes');
+const commentRouter = require('./routes/commentRoutes');
 const app = express();
 
 // Development logging
@@ -21,6 +22,7 @@ app.use(
 // ROUTES
 app.use('/api/v1/posts', postRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/comments', commentRouter);
 
 // Global Error Handler
 app.use(globalErrorHandler);

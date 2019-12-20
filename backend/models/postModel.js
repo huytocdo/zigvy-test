@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
 const TimeFormat = require('./../utils/timeFormat');
-// 2) CREATE SCHEMA
+
 const postSchema = new mongoose.Schema(
   {
     title: {
@@ -53,6 +53,11 @@ postSchema.virtual('date').get(function() {
   return TimeFormat.formatVNDate(this.createdAt);
 });
 
+postSchema.virtual('comments', {
+  ref: 'Comment',
+  foreignField: 'post',
+  localField: '_id'
+});
 
 postSchema.pre(/^find/, function(next) {
   this.populate('author', 'name');
