@@ -2,16 +2,15 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Blogs from './containers/Blogs';
-import BlogDetail from './containers/BlogDetail';
-
+import NavBar from './components/NavBar/NavBar';
 import './App.css';
 
 const App = () => (
   <div className="App">
-    <Switch>
-      <Route path="/test" component={BlogDetail} />
-      <Route path="/"  component={Blogs} />
-    </Switch>
+      <NavBar />
+      <Switch>
+        <Route path="/"  component={Blogs} />
+      </Switch>
   </div>
 );
 
