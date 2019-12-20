@@ -4,7 +4,8 @@
   "description": "A blog for zigvy test purpose",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "start:prod": "node server.js"
   },
   "author": "",
   "license": "ISC",
