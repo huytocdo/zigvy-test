@@ -62,7 +62,7 @@ postSchema.virtual('comments', {
 
 postSchema.pre(/^find/, function(next) {
   this.populate('author', 'name');
-  this.populate('comments', 'comment user');
+  this.populate('comments', 'comment user createdAt');
   this.find({ active: { $ne: false } });
   next();
 });
