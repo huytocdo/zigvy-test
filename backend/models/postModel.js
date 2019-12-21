@@ -56,11 +56,13 @@ postSchema.virtual('date').get(function() {
 postSchema.virtual('comments', {
   ref: 'Comment',
   foreignField: 'post',
-  localField: '_id'
+  localField: '_id',
+  options: { sort: { createdAt: -1 }, limit: 5}
 });
 
 postSchema.pre(/^find/, function(next) {
   this.populate('author', 'name');
+  this.populate('comments', 'comment user');
   this.find({ active: { $ne: false } });
   next();
 });

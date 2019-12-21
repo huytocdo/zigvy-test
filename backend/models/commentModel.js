@@ -15,11 +15,17 @@ const commentSchema = new mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       ref: 'User',
       required: [true, 'Comment must belong to a user.']
-    }
+    },
+    active: {
+      type: Boolean,
+      default: true,
+      select: false
+    },
   },
   {
     toJSON: { virtuals: true },
-    toObject: { virtuals: true }
+    toObject: { virtuals: true },
+    timestamps: true
   }
 );
 
@@ -28,8 +34,9 @@ commentSchema.index({ post: 1, user: 1 });
 commentSchema.pre(/^find/, function(next) {
   this.populate({
     path: 'user',
-    select: 'name photo email'
+    select: 'name photo'
   });
+  this.find({ active: { $ne: false } }); // Remove in-active
   next()
 })
 
