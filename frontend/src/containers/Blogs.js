@@ -1,5 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const TestRouter = () => (<h1>INDEX PAGE</h1>);
+import ShortPost from './../components/ShortPost';
 
-export default TestRouter;
+class Blogs extends Component {
+  render() {
+    return (
+      <div>
+        <h1>Hi, I'm a React App</h1>
+        <ShortPost />
+      </div>
+    )
+  }
+}
+
+export default Blogs;
