@@ -27,7 +27,7 @@ class ShortPost extends Component {
       shortContent,
       comments,
     } = this.props;
-    const renderComment = this.state.showComment ? comments.map(comment => ({
+    const renderComment = comments.map(comment => ({
       author: _get(comment, 'user.name', ''),
       avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
       content: (
@@ -44,7 +44,7 @@ class ShortPost extends Component {
           </span>
         </Tooltip>
       ) : null,
-    })) : []
+    }))
 
     const formatedCreatedDate = moment(createdAt).format('ll');
 
@@ -67,10 +67,10 @@ class ShortPost extends Component {
         </Row>
         <List
           className="comment-list"
-          header={(<span onClick={this.toggleShowComment}>{comments.length} replies</span>)}
+          header={(<span onClick={this.toggleShowComment}>{renderComment.length} replies</span>)}
           itemLayout="horizontal"
           dataSource={renderComment}
-          renderItem={item => (
+          renderItem={item => this.state.showComment ? (
             <li>
               <Comment
                 actions={item.actions}
@@ -80,7 +80,7 @@ class ShortPost extends Component {
                 datetime={item.datetime}
               />
             </li>
-          )}
+          ) : (<span></span>)}
         />
       </div>
     );

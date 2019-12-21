@@ -10,7 +10,6 @@ import * as serviceWorker from './serviceWorker';
 import reducer from './store/reducers';
 
 const store = createStore(reducer);
-
 const app = (
   <Provider store={store}>
     <BrowserRouter>

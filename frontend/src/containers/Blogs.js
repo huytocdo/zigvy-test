@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import axios from 'axios';
 import { get as _get } from 'lodash';
 import { List, Button, Skeleton } from 'antd';
 
+import * as actions from './../store/actions';
 import ShortPost from './../components/ShortPost/';
 
 const LIMIT_POST = 5;
@@ -66,6 +69,8 @@ class Blogs extends Component {
         }}
       >
         <Button onClick={this.onLoadMore} disabled={reachLimit}>{reachLimit ? `don't have any post` : 'loading more'}</Button>
+        <Button onClick={this.props.onCountUp} disabled={reachLimit}>{`${this.props.count} UP`}</Button>
+        <Button onClick={this.props.onCountDown} disabled={reachLimit}>{`${this.props.count} DOWN`}</Button>
       </div>
     ) : null;
     return (
@@ -83,21 +88,37 @@ class Blogs extends Component {
           const shortContent = _get(item, 'content','').substring(0, 100);
           const comments = _get(item, 'comments', [])
           return (
-          <Skeleton avatar title={false} loading={item.loading} active>
-            <ShortPost
-              key={id}  
-              title={title}
-              author={author}
-              createdAt={createdAt}
-              tags={tags}
-              shortContent={shortContent}
-              comments={comments}
-            />
-          </Skeleton>
-        )}}
+            <Skeleton avatar title={false} loading={item.loading} active>
+              <ShortPost
+                key={id}  
+                title={title}
+                author={author}
+                createdAt={createdAt}
+                tags={tags}
+                shortContent={shortContent}
+                comments={comments}
+              />
+            </Skeleton>
+          )
+        }}
       />
     )
   }
 }
 
-export default Blogs;
+
+const mapStateToProps = (state = {}) => {
+  return {
+    count: state.count
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onCountUp: () => dispatch(actions.countUp()),
+    onCountDown: () => dispatch(actions.countDown())
+  }
+}
+// export default connect(null, null)(Blogs);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Blogs);
