@@ -1,0 +1,12 @@
+.short-post .short-post--title {
+  text-align: center;
+}
+.short-post .short-post--description {
+  text-align: left;
+  font-size: 20px;
+}
+
+.short-post .short-post--infor {
+  font-size: 20px;
+  margin-bottom: 20px;
+}

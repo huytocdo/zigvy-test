@@ -1,5 +1,6 @@
 import React from 'react';
 import { Avatar } from 'antd';
+import './NavBar.css';
 
 export default () => {
   return (  
