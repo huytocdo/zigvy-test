@@ -4,18 +4,18 @@ import './NavBar.css';
 
 export default () => {
   return (  
-    <div class="nav-bar">
-      <ul class="nav-list">
-        <li class="nav-item">
-          <div class="logo-box">Logo</div>
+    <div className="nav-bar">
+      <ul className="nav-list">
+        <li className="nav-item">
+          <div className="logo-box">Logo</div>
         </li>
-        <li class="nav-item">
-          <a href="#" class="title">Blogs</a>
+        <li className="nav-item">
+          <a href="#" className="title">Blogs</a>
         </li>
-        <li class="nav-item">
-          <div class="account-box">
+        <li className="nav-item">
+          <div className="account-box">
             <Avatar shape="square" size={44} icon="user" />
-            <span class="account-name">Adam Levine</span>
+            <span className="account-name">Adam Levine</span>
           </div>
         </li>
       </ul>
