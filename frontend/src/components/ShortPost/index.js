@@ -28,6 +28,7 @@ class ShortPost extends Component {
       comments,
     } = this.props;
     const renderComment = comments.map(comment => ({
+      id: _get(comment, 'id', ''),
       author: _get(comment, 'user.name', ''),
       avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
       content: (
@@ -67,9 +68,10 @@ class ShortPost extends Component {
         </Row>
         <List
           className="comment-list"
-          header={(<span onClick={this.toggleShowComment}>{renderComment.length} replies</span>)}
+          header={(<span onClick={this.toggleShowComment} className="toggle-reply">{renderComment.length} replies</span>)}
           itemLayout="horizontal"
           dataSource={renderComment}
+          rowKey={renderComment.id}
           renderItem={item => this.state.showComment ? (
             <li>
               <Comment

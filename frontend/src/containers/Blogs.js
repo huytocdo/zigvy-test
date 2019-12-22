@@ -20,44 +20,11 @@ class Blogs extends Component {
   }
 
   componentDidMount() {
-    this.getData(this.state.page).then(posts => {
-      const page = this.state.page + 1;
-      this.setState({
-        ...this.state,
-        page,
-        initLoading: false,
-        posts: [...posts],
-        list: [...posts]
-      })
-    })
-  }
-
-  getData = (page) => {
-    return axios.get(`/api/v1/posts?limit=${LIMIT_POST}&page=${page}`).then(res => _get(res, "data.data.data", []))
-  }
-
-  onLoadMore = () => {
-    this.setState({
-      loading: true,
-      list: this.state.posts.concat([...new Array(LIMIT_POST)].map(() => ({ loading: true }))),
-    });
-    this.getData(this.state.page).then(posts => {
-      const data = this.state.posts.concat(posts);
-      const page = this.state.page + 1;
-      this.setState({
-          ...this.state,
-          page,
-          loading: false,
-          reachLimit: posts.length === 0,
-          posts: [...data],
-          list: [...data]
-        }
-      );
-    });
+    this.props.initFetchPosts(LIMIT_POST);
   }
 
   render() {
-    const { initLoading, loading, reachLimit, list } = this.state;
+    const { initLoading, loading, reachLimit, list, posts, fetchMorePosts } = this.props;
     const loadMore =
     !initLoading && !loading ? (
       <div
@@ -68,9 +35,7 @@ class Blogs extends Component {
           lineHeight: '32px',
         }}
       >
-        <Button onClick={this.onLoadMore} disabled={reachLimit}>{reachLimit ? `don't have any post` : 'loading more'}</Button>
-        <Button onClick={this.props.onCountUp} disabled={reachLimit}>{`${this.props.count} UP`}</Button>
-        <Button onClick={this.props.onCountDown} disabled={reachLimit}>{`${this.props.count} DOWN`}</Button>
+        <Button onClick={fetchMorePosts} disabled={reachLimit}>{reachLimit ? `don't have any post` : 'loading more'}</Button>
       </div>
     ) : null;
     return (
@@ -107,18 +72,23 @@ class Blogs extends Component {
 }
 
 
-const mapStateToProps = (state = {}) => {
+const mapStateToProps = (state) => {
+  const { initLoading, loading, page, reachLimit, posts, list } = state.blogs;
   return {
-    count: state.count
+    initLoading,
+    loading,
+    page,
+    reachLimit,
+    posts,
+    list
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onCountUp: () => dispatch(actions.countUp()),
-    onCountDown: () => dispatch(actions.countDown())
+    initFetchPosts: (limit) => dispatch(actions.initFetchPosts(limit)),
+    fetchMorePosts: (page, limit) => dispatch(actions.fetchPosts(page, limit))
   }
 }
-// export default connect(null, null)(Blogs);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Blogs);
