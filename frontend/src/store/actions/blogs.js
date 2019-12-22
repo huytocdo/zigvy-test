@@ -30,3 +30,8 @@ export const fetchPostsFail = (error) => ({
   type: actionTypes.FETCH_POSTS_FAIL,
   error
 })
+
+export const filterPostTitle = (value) => ({
+  type: actionTypes.FILTER_POST_TITLE,
+  value
+})

@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import './Signup.css';
 
-import { get as _get } from 'lodash';
-
 import * as actions from './../../store/actions';
 import {
   Typography,
@@ -120,7 +118,7 @@ class Signup extends Component {
                 },
                 { 
                   min: 8, 
-                  message: 'Password should have at least 8 character.'
+                  message: 'Password should have at least 8 characters.'
                 },
                 {
                   validator: this.validateToNextPassword,

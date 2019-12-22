@@ -2,9 +2,11 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import blogs from './reducers/blogs';
 import authen from './reducers/authen';
+import createNewPost from './reducers/createNewPost';
 import { 
   watchBlogs,
-  watchAuthen
+  watchAuthen,
+  watchCreateNewPost
 } from "./sagas";
 
 const composeEnhancers =
@@ -14,7 +16,8 @@ const composeEnhancers =
 
 const rootReducer = combineReducers({
   blogs,
-  authen
+  authen,
+  createNewPost
 });
 
 const sagaMiddleware = createSagaMiddleware();
@@ -26,5 +29,6 @@ const store = createStore(
 
 sagaMiddleware.run(watchBlogs);
 sagaMiddleware.run(watchAuthen);
+sagaMiddleware.run(watchCreateNewPost);
 
 export default store;

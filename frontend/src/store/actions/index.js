@@ -4,7 +4,8 @@ export {
   fetchPosts,
   fetchPostsStart,
   fetchPostsSuccess,
-  fetchPostsFail
+  fetchPostsFail,
+  filterPostTitle
 } from './blogs';
 
 export {
@@ -25,3 +26,11 @@ export {
   checkMeSuccess,
   checkMeFail
 } from './authen';
+
+export {
+  createNewPost,
+  createNewPostStart,
+  createNewPostSuccess,
+  createNewPostFail,
+  clearRedirect
+} from './createNewPost';

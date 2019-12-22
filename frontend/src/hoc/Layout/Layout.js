@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import * as actions from './../../store/actions';
 import NavBar from './../../components/NavBar/NavBar';
 class Layout extends Component {
 
@@ -28,9 +27,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Layout);
+export default connect(mapStateToProps)(Layout);

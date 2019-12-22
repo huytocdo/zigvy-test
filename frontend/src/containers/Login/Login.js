@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { get as _get } from 'lodash';
 import { Link, Redirect } from 'react-router-dom';
+import './Login.css';
 
 import * as actions from './../../store/actions';
 import { Typography, Form, Input, Button } from 'antd';
@@ -53,10 +53,10 @@ class Login extends Component {
       null;
 
     return (
-      <div className="sign-up-form">
+      <div className="login-form">
         {authenRedirect}
         <Title className="title">Login</Title>
-        <Form {...formItemLayout} onSubmit={this.handleSubmit} className="login-form">
+        <Form {...formItemLayout} onSubmit={this.handleSubmit}>
           <Form.Item label="Email">
             {getFieldDecorator('email', {
               rules: [
@@ -75,7 +75,7 @@ class Login extends Component {
             {getFieldDecorator('password', {
               rules: [
                 { required: true, message: 'Please input your Password!' },
-                { min: 8, message: 'Password should have at least 8 character.'}
+                { min: 8, message: 'Password should have at least 8 characters.'}
               ],
             })(
               <Input.Password />,
