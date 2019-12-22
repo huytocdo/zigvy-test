@@ -2,34 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
-import createSagaMiddleware from 'redux-saga';
 import * as serviceWorker from './serviceWorker';
 
 import './index.css';
 import App from './App';
-import blogs from './store/reducers/blogs';
-import { 
-  watchBlogs
-} from "./store/sagas";
 
-const composeEnhancers =
-  process.env.NODE_ENV === "development" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    : null || compose;
-
-const rootReducer = combineReducers({
-  blogs,
-});
-
-const sagaMiddleware = createSagaMiddleware();
-
-const store = createStore(
-  rootReducer,
-  composeEnhancers(applyMiddleware(sagaMiddleware))
-);
-
-sagaMiddleware.run(watchBlogs);
+import store from './store/store';
 
 const app = (
   <Provider store={store}>

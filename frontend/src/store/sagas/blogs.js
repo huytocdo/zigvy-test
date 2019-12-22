@@ -16,6 +16,7 @@ export function* initFetchPosts(action) {
 }
 
 export function* fetchPosts(action) {
+  console.log(action);
   const queryParams =`?page=${action.page}&limit=${action.limit}`;
   try {
     yield put(actions.fetchPostsStart(action.limit));

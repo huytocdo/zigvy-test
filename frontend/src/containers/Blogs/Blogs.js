@@ -1,30 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import axios from 'axios';
 import { get as _get } from 'lodash';
 import { List, Button, Skeleton } from 'antd';
 
-import * as actions from './../store/actions';
-import ShortPost from './../components/ShortPost/';
+import * as actions from './../../store/actions';
+import ShortPost from './../../components/ShortPost/ShortPost';
 
 const LIMIT_POST = 5;
 class Blogs extends Component {
-  state = {
-    initLoading: true,
-    loading: false,
-    page: 1,
-    reachLimit: false,
-    posts: [],
-    list: []
-  }
 
   componentDidMount() {
-    this.props.initFetchPosts(LIMIT_POST);
+    if(this.props.initLoading) this.props.initFetchPosts(LIMIT_POST);
+  }
+
+  loadMoreHandler = () => {
+    this.props.fetchMorePosts(this.props.page, LIMIT_POST);
   }
 
   render() {
-    const { initLoading, loading, reachLimit, list, posts, fetchMorePosts } = this.props;
+    const { initLoading, loading, reachLimit, list } = this.props;
     const loadMore =
     !initLoading && !loading ? (
       <div
@@ -35,7 +30,7 @@ class Blogs extends Component {
           lineHeight: '32px',
         }}
       >
-        <Button onClick={fetchMorePosts} disabled={reachLimit}>{reachLimit ? `don't have any post` : 'loading more'}</Button>
+        <Button onClick={this.loadMoreHandler} disabled={reachLimit}>{reachLimit ? `don't have any post` : 'loading more'}</Button>
       </div>
     ) : null;
     return (
@@ -73,13 +68,12 @@ class Blogs extends Component {
 
 
 const mapStateToProps = (state) => {
-  const { initLoading, loading, page, reachLimit, posts, list } = state.blogs;
+  const { initLoading, loading, page, reachLimit, list } = state.blogs;
   return {
     initLoading,
     loading,
     page,
     reachLimit,
-    posts,
     list
   }
 }

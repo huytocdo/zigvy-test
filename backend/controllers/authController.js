@@ -88,6 +88,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   // GRANT ACCESS TO PROTECTED ROUTE
   req.user = currentUser;
   res.locals.user = currentUser;
+  res.locals.token = token;
   next();
 });
 
@@ -109,9 +110,10 @@ exports.logout = async (req, res) => {
 
 
 exports.getUserInfo = (req, res, next) => {
-  if (res.locals.user) {
+  if (res.locals.user && res.locals.token) {
     res.status(200).json({
       status: 'success',
+      token: res.locals.token,
       data: {
         user: res.locals.user
       }
