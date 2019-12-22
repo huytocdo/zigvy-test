@@ -5,6 +5,6 @@ module.exports = {
                 instance: 'max',
                 cwd: './backend',
                 script: 'npm',
-                args: 'start:prod',
+                args: 'start',
         }]
 };
