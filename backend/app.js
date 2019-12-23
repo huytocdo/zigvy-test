@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser')
 const globalErrorHandler = require('./controllers/errorController');
 const postRouter = require('./routes/postRoutes');
 const userRouter = require('./routes/userRoutes');
@@ -10,7 +11,7 @@ const app = express();
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
-
+app.use(cookieParser())
 // Body parser, reading data from body into req.body
 app.use(
   express.json({

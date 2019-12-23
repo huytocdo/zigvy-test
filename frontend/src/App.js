@@ -12,7 +12,7 @@ import * as actions from './store/actions';
 import './App.css';
 
 class App extends Component {
-  componentDidMount () {
+  componentWillMount () {
     this.props.checkMe();
   }
 
